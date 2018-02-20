@@ -1,6 +1,18 @@
 # PHP Development Environment
 
-A quick way to set up a PHP development environment (possibly) on any machine with docker (have not tested yet):
+A quick way to set up a PHP development environment on any machine with Docker (have not tested yet):
+
+## Includes
+
+-- PHP
+
+-- Apache
+
+-- MySQL
+
+-- phpMyAdmin
+
+## Installation
 
 First, download and install Docker from here:
 ```
@@ -26,12 +38,13 @@ phpMyAdmin can be accessed at localhost:9090.
 ## Example - Setting up a Wordpress project:
 
 -- Copy your Wordpress website files into the projects directory.  (ie. example.test/)
+
 -- Create a new VirtualHost within the apache/ folder for your Wordpress website.
--- Create or import the website database within phpMyadmin.
+
+-- Create or import the website database within phpMyadmin.  (localhost:9090)
+
 -- The database hostname for this environment is "mysql".  In the wp-config.php file, set the "DB_HOST" to "mysql".  You can also use the environment variable "WORDPRESS_DB_HOST".
+
 -- Since web pages are viewed on port 8080, make one more update in the wp-config.php file. Add ":8080" next to your "WP_HOME" and "WP_SITEURL" urls.
+
 -- Run docker-compose up -d to start development!
-
-## License
-
-MIT
