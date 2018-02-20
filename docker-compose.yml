@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    links:
+      - mysql
+    ports:
+      - 8080:80
+    volumes:
+      - ./projects:/var/www/html
+      - ./apache:/etc/apache2/sites-enabled
+    environment:
+      WORDPRESS_DB_HOST: mysql
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    links:
+      - mysql:db
+    ports:
+      - 9090:80
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: secret
+    restart: always
+  mysql:
+    image: mysql:latest
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+    restart: always
