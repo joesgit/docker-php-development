@@ -1,32 +1,30 @@
 version: '3'
 
 services:
-  web:
+
+  project:
     build: .
-    links:
-      - mysql
-    ports:
-      - 8080:80
     volumes:
-      - ./projects:/var/www/html
-      - ./apache:/etc/apache2/sites-enabled
+      - ./project:/var/www/html
     environment:
       WORDPRESS_DB_HOST: mysql
     restart: always
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    links:
-      - mysql:db
+
+  nginx:
+    image: nginx
     ports:
-      - 9090:80
-    environment:
-      MYSQL_USERNAME: root
-      MYSQL_ROOT_PASSWORD: secret
-    restart: always
-  mysql:
-    image: mysql:latest
+      - '2222:80'
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./.nginx:/etc/nginx/conf.d
+    restart: always
+
+  mysql:
+    image: mysql
+    ports:
+      - '3333:3306'
+    volumes:
+      - ./.mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
     restart: always
+  
